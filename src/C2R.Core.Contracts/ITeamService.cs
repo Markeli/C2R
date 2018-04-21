@@ -1,12 +1,15 @@
-﻿namespace C2R.Core.Contracts
+﻿using JetBrains.Annotations;
+
+namespace C2R.Core.Contracts
 {
     public interface ITeamService
     {
-        void CreateTeam(Team team);
+        void CreateTeam([NotNull] Team team);
 
-        void GetTeam(long telegramChatId);
+        [NotNull]
+        Team GetTeam(long telegramChatId);
         
-        void AddTeamMember(long teamId, TeamMember teamMember);
+        void AddTeamMember(long teamId, [NotNull] TeamMember teamMember);
 
         void RemoveTeamMember(long teamId, long teamMemberId);
     }

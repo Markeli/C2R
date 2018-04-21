@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace C2R.Core.Contracts
 {
@@ -6,6 +7,7 @@ namespace C2R.Core.Contracts
     {
         Guid StrategyId { get; }
         
-        TeamMember GetCodeReviewer(Team team);
+        [CanBeNull]
+        TeamMember GetCodeReviewer([NotNull] Team team);
     }
 }

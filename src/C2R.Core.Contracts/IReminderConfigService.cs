@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace C2R.Core.Contracts
 {
@@ -6,6 +7,7 @@ namespace C2R.Core.Contracts
     {
         void CreateDefaultConfig(long teamId);
 
+        [NotNull]
         ReminderConfig GetConfig(long teamId);
 
         void UpdateRemindTime(long teamId, TimeSpan remindTime);

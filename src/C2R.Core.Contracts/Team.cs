@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace C2R.Core.Contracts
 {
@@ -8,6 +9,8 @@ namespace C2R.Core.Contracts
         
         public long TelegramChatId { get; set; }
         
-        public ICollection<TeamMember> Members { get; set; }
+        [NotNull]
+        [ItemNotNull]
+        public IReadOnlyCollection<TeamMember> Members { get; set; }
     }
 }

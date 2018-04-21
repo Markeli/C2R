@@ -10,6 +10,6 @@ namespace C2R.Core.Contracts
         
         public Guid CodeReviewerProvidingStratagy { get; set; }
         
-        public TimeSpan RemindTime { get; set; }
+        public TimeSpan RemindTimeUtc { get; set; }
     }
 }

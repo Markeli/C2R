@@ -1,13 +1,15 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace C2R.Core.Contracts
 {
     public interface ICodeReviewerProvider
     {
-        void RegisterStrategy(ICodeReviewerProviderStrategy strategy);
+        void RegisterStrategy([NotNull] ICodeReviewerProviderStrategy strategy);
 
         void UnregisterStrategy(Guid strategyId);
         
-        TeamMember GetCodeReviewer(Team team, ReminderConfig config);
+        [CanBeNull]
+        TeamMember GetCodeReviewer([NotNull] Team team, [NotNull] ReminderConfig config);
     }
 }
