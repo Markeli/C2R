@@ -12,6 +12,7 @@ using Telegram.Bot.Types.Enums;
 
 namespace C2R.TelegramBot.Services.Commands.Stop
 {
+    [Obsolete("Will delete later")]
     public class StopCommandProcessor : IUpdateProcessor
     {
         private readonly string _commandName = "/stop";
@@ -25,7 +26,7 @@ namespace C2R.TelegramBot.Services.Commands.Stop
         private readonly ITeamService _teamService;
         
         [NotNull] 
-        private readonly IReminderConfigService _configService;
+        private readonly ITeamConfigService _configService;
         
         [NotNull]
         private readonly IReminderScheduler _reminderScheduler;
@@ -37,7 +38,7 @@ namespace C2R.TelegramBot.Services.Commands.Stop
             [NotNull] ILogger logger, 
             [NotNull] IBotService botService, 
             [NotNull] ITeamService teamService, 
-            [NotNull] IReminderConfigService configService, 
+            [NotNull] ITeamConfigService configService, 
             [NotNull] IReminderScheduler reminderScheduler, 
             [NotNull] ICommunicatorFactory responseBuilderFactory)
         {

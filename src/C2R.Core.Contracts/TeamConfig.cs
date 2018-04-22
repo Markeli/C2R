@@ -2,7 +2,7 @@
 
 namespace C2R.Core.Contracts
 {
-    public class ReminderConfig
+    public class TeamConfig
     {
         public long Id { get; set; }
         

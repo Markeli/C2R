@@ -10,6 +10,6 @@ namespace C2R.Core.Contracts
         void UnregisterStrategy(Guid strategyId);
         
         [NotNull]
-        CodeReviewerResponse GetCodeReviewer([NotNull] Team team, [NotNull] ReminderConfig config, bool ignoreHistory);
+        CodeReviewerResponse GetCodeReviewer([NotNull] Team team, [NotNull] TeamConfig config, bool ignoreHistory);
     }
 }

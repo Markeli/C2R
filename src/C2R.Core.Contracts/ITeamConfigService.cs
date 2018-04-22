@@ -3,16 +3,19 @@ using JetBrains.Annotations;
 
 namespace C2R.Core.Contracts
 {
-    public interface IReminderConfigService
+    public interface ITeamConfigService
     {
         void SetDefaultProviderStrategy(Guid id);
         
         void SetDefaultCommunication(Guid id);
+
+        [NotNull]
+        TeamConfig GetDefaultConfig();
         
-        void CreateDefaultConfig(long teamId);
+        void CreateConfig([NotNull] TeamConfig config);
         
         [NotNull]
-        ReminderConfig GetConfig(long teamId);
+        TeamConfig GetConfig(long teamId);
 
         void DeleteConfig(long configId);
 

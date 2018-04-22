@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using C2R.Core.Contracts;
 using C2R.TelegramBot.Extensions;
 using C2R.TelegramBot.Services.Bots;
+using C2R.TelegramBot.Services.Communications;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot.Types;
@@ -23,24 +24,29 @@ namespace C2R.TelegramBot.Services.Commands
         private readonly ITeamService _teamService;
 
         [NotNull]
-        private readonly IReminderConfigService _configService;
+        private readonly ITeamConfigService _configService;
 
 
         [NotNull]
         private readonly ICodeReviewerProvider _codeReviewerProvider;
+
+        [NotNull]
+        private readonly ICommunicatorFactory _communicatorFactory;
         
         public AnotherReviewerCommandProcessor(
             [NotNull] ILogger logger, 
             [NotNull] IBotService botService, 
             [NotNull] ITeamService teamService, 
-            [NotNull] IReminderConfigService configService, 
-            [NotNull] ICodeReviewerProvider codeReviewerProvider)
+            [NotNull] ITeamConfigService configService, 
+            [NotNull] ICodeReviewerProvider codeReviewerProvider, 
+            [NotNull] ICommunicatorFactory communicatorFactory)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _botService = botService ?? throw new ArgumentNullException(nameof(botService));
             _teamService = teamService ?? throw new ArgumentNullException(nameof(teamService));
             _configService = configService ?? throw new ArgumentNullException(nameof(configService));
             _codeReviewerProvider = codeReviewerProvider;
+            _communicatorFactory = communicatorFactory ?? throw new ArgumentNullException(nameof(communicatorFactory));
         }
 
         public bool CanProcess(Update update)
@@ -62,16 +68,35 @@ namespace C2R.TelegramBot.Services.Commands
         {
             var canProcess = CanProcess(update);
             if (!canProcess) throw new ArgumentException($"{GetType().Name} can not procces message update with Id {update.Id} and type {update.Type}");
-            
-            var team = _teamService.GetTeam(update.GetChatId().Identifier);
+
+            var chatId = update.GetChatId();
+            var team = _teamService.GetTeam(chatId.Identifier);
             var config = _configService.GetConfig(team.Id);
 
-            var reviewer = _codeReviewerProvider.GetCodeReviewer(
-                ignoreHistory: true, 
-                team: team, 
-                config: config);
-            
-            await _botService.Client.SendTextMessageAsync(update.GetChatId(), update.Message.Text);
+            var communicator =
+                _communicatorFactory.Create<IAnotherReviewerCommandCommunicator>(config.CommunicationMode);
+            try
+            {
+                var reviewerResponse = _codeReviewerProvider.GetCodeReviewer(
+                    ignoreHistory: true, 
+                    team: team, 
+                    config: config);
+                if (reviewerResponse.CodeReviwer == null)
+                {
+                    communicator.NotifyOnNoReviewerAsync(chatId)
+                        .ConfigureAwait(false);
+                    return;
+                }
+                await communicator.NotifyOnSuccessAsync(chatId, reviewerResponse)
+                    .ConfigureAwait(false);
+
+            }
+            catch (Exception e)
+            {
+                await communicator.NotifyOnFailureAsync(chatId)
+                    .ConfigureAwait(false);
+                _logger.LogError($"Error on another reviewer command: {e.Message}", e);
+            }
         }
     }
 }

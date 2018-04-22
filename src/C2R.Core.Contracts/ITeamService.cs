@@ -7,6 +7,8 @@ namespace C2R.Core.Contracts
         long CreateTeam([NotNull] Team team);
 
         void DeleteTeam(long teamId);
+
+        bool IsTeamRegistered(long telegramChatId);
         
         [NotNull]
         Team GetTeam(long telegramChatId);
