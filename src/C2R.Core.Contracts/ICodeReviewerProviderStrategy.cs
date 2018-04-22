@@ -7,7 +7,7 @@ namespace C2R.Core.Contracts
     {
         Guid StrategyId { get; }
         
-        [CanBeNull]
-        TeamMember GetCodeReviewer([NotNull] Team team);
+        [NotNull]
+        CodeReviewerResponse GetCodeReviewer([NotNull] Team team, bool ignoreHistory);
     }
 }

@@ -8,6 +8,8 @@ namespace C2R.Core.Contracts
         
         public long TeamId { get; set; }
         
+        public long? ReminderJobId { get; set; }
+        
         public Guid CodeReviewerProvidingStratagy { get; set; }
         
         public TimeSpan RemindTimeUtc { get; set; }
