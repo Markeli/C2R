@@ -4,8 +4,10 @@ namespace C2R.Core.Contracts
 {
     public interface ITeamService
     {
-        void CreateTeam([NotNull] Team team);
+        long CreateTeam([NotNull] Team team);
 
+        void DeleteTeam(long teamId);
+        
         [NotNull]
         Team GetTeam(long telegramChatId);
         

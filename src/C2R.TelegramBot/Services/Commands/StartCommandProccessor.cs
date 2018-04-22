@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using C2R.Core.Contracts;
 using C2RTelegramBot.Extensions;
 using C2RTelegramBot.Services;
 using C2RTelegramBot.Services.Commands;
@@ -19,12 +20,22 @@ namespace C2R.TelegramBot.Services.Commands
         [NotNull]
         private readonly IBotService _botService;
 
+        [NotNull]
+        private readonly ITeamService _teamService;
+
+        [NotNull]
+        private readonly IReminderConfigService _configService;
+
         public StartCommandProccessor(
             [NotNull] ILogger<StartCommandProccessor> logger, 
-            [NotNull] IBotService botService)
+            [NotNull] IBotService botService,
+            [NotNull] ITeamService teamService,
+            [NotNull] IReminderConfigService configService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _botService = botService ?? throw new ArgumentNullException(nameof(botService));
+            _teamService = teamService ?? throw new ArgumentNullException(nameof(teamService));
+            _configService = configService ?? throw new ArgumentNullException(nameof(configService));
         }
 
         public bool CanProcess(Update update)
@@ -47,6 +58,16 @@ namespace C2R.TelegramBot.Services.Commands
             var canProcess = CanProcess(update);
             if (!canProcess) throw new ArgumentException($"{GetType().Name} can not procces message update with Id {update.Id} and type {update.Type}");
 
+            
+            var team = new Team
+            {
+                TelegramChatId = update.GetChatId().Identifier
+            };
+            var teamId = _teamService.CreateTeam(team);
+
+            _configService.CreateDefaultConfig(teamId);
+            var config = _configService.GetConfig(teamId);
+            
             await _botService.Client.SendTextMessageAsync(update.GetChatId(), update.Message.Text);
         }
     }
