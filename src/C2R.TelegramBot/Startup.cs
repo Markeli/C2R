@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using C2R.TelegramBot.Services.Commands;
 using C2RTelegramBot.Services;
+using C2RTelegramBot.Services.Commands;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,8 +37,10 @@ namespace C2RTelegramBot
         {
             services.AddMvc();
 
-            services.AddScoped<IUpdateService, UpdateService>();
-            services.AddSingleton<IBotService, BotService>();
+            services.AddSingleton<IUpdateService, UpdateService>();
+            services.AddSingleton<IUpdateProcessor, StartCommandProccessor>();
+            services.AddTransient<ICollection<IUpdateProcessor>>(c => c.GetServices<IUpdateProcessor>()?.ToList() ?? new List<IUpdateProcessor>(0));
+            services.AddSingleton<IBotService, PushingBotService>();
 
             services.Configure<BotConfiguration>(_configuration.GetSection("BotConfiguration"));
         }

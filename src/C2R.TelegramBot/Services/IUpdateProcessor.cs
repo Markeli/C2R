@@ -1,12 +1,13 @@
 ﻿using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Telegram.Bot.Types;
 
 namespace C2RTelegramBot.Services.Commands
 {
     public interface IUpdateProcessor
     {
-        Task<bool> CanProcess(Update update);
+        bool CanProcess([NotNull] Update update);
         
-        Task ProcessAsync(Update update);
+        Task ProcessAsync([NotNull] Update update);
     }
 }

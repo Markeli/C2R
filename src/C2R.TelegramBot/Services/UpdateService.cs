@@ -1,56 +1,43 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using C2RTelegramBot.Services.Commands;
+using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
 
 namespace C2RTelegramBot.Services
 {
     public class UpdateService : IUpdateService
     {
-        private readonly IBotService _botService;
-        private readonly ILogger<UpdateService> _logger;
+        [NotNull] 
+        private readonly ICollection<IUpdateProcessor> _updateProcessors;
 
-        public UpdateService(IBotService botService, ILogger<UpdateService> logger)
+        [NotNull] private readonly ILogger<UpdateService> _logger;
+
+        public UpdateService(
+            [NotNull] ICollection<IUpdateProcessor> updateProcessors,
+            [NotNull] ILogger<UpdateService> logger)
         {
-            _botService = botService;
-            _logger = logger;
+            _updateProcessors = updateProcessors ?? throw new ArgumentNullException(nameof(updateProcessors));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task ProcessUpdateAsync(Update update)
         {
             if (update == null) throw new ArgumentNullException(nameof(update));
-            
-            if (update.Type != UpdateType.MessageUpdate)
+
+            try
             {
-                return;
+                var processor = _updateProcessors.FirstOrDefault(x => x.CanProcess(update));
+                if (processor == null) return;
+
+                await processor.ProcessAsync(update).ConfigureAwait(false);
             }
-
-            var message = update.Message;
-
-            _logger.LogInformation("Received Message from {0}", message.Chat.Id);
-
-            if (message.Type == MessageType.TextMessage)
+            catch (Exception e)
             {
-                // Echo each Message
-                await _botService.Client.SendTextMessageAsync(message.Chat.Id, message.Text);
-            }
-            else if (message.Type == MessageType.PhotoMessage)
-            {
-                // Download Photo
-                var fileId = message.Photo.LastOrDefault()?.FileId;
-                var file = await _botService.Client.GetFileAsync(fileId);
-
-                var filename = file.FileId + "." + file.FilePath.Split('.').Last();
-
-                using (var saveImageStream = System.IO.File.Open(filename, FileMode.Create))
-                {
-                    await _botService.Client.GetFileAsync(file.FilePath, saveImageStream);
-                }
-
-                await _botService.Client.SendTextMessageAsync(message.Chat.Id, "Thx for the Pics");
+                _logger.LogError("Processing message update error", e);
             }
         }
     }
