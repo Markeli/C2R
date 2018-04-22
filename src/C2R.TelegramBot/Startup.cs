@@ -40,13 +40,18 @@ namespace C2RTelegramBot
             services.AddSingleton<IUpdateService, UpdateService>();
             services.AddSingleton<IUpdateProcessor, StartCommandProccessor>();
             services.AddTransient<ICollection<IUpdateProcessor>>(c => c.GetServices<IUpdateProcessor>()?.ToList() ?? new List<IUpdateProcessor>(0));
-            services.AddSingleton<IBotService, PushingBotService>();
+            services.AddSingleton<IBotService, BotService>();
 
             services.Configure<BotConfiguration>(_configuration.GetSection("BotConfiguration"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(
+            IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            IServiceProvider provider,
+            IApplicationLifetime applicationLifetime)
         {
             if (env.IsDevelopment())
             {
