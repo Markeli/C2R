@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using C2RTelegramBot.Services;
+using C2R.TelegramBot.Services;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
 
-namespace C2RTelegramBot.Controllers
+namespace C2R.TelegramBot.Controllers
 {
     [Route("api/[controller]")]
     public class UpdateController : Controller

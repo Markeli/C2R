@@ -12,6 +12,8 @@ namespace C2R.Core.Contracts
         
         public Guid CodeReviewerProvidingStratagy { get; set; }
         
+        public Guid CommunicationMode { get; set; }
+        
         public TimeSpan RemindTimeUtc { get; set; }
     }
 }

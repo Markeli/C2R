@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using C2R.Core.Contracts;
+using C2R.TelegramBot.Extensions;
+using C2R.TelegramBot.Services.Bots;
 using C2R.TelegramBot.Services.Scheduler;
-using C2RTelegramBot.Extensions;
-using C2RTelegramBot.Services;
-using C2RTelegramBot.Services.Commands;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot.Types;
@@ -60,7 +59,7 @@ namespace C2R.TelegramBot.Services.Commands
 
             var team = _teamService.GetTeam(update.GetChatId().Identifier);
 
-            _reminderScheduler.DeleteReminder(team.Id);
+            _reminderScheduler.TryDeleteReminder(team.Id);
 
             await _botService.Client.SendTextMessageAsync(update.GetChatId(), update.Message.Text);
         }

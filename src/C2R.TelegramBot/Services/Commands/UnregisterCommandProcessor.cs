@@ -2,9 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using C2R.Core.Contracts;
-using C2RTelegramBot.Extensions;
-using C2RTelegramBot.Services;
-using C2RTelegramBot.Services.Commands;
+using C2R.TelegramBot.Extensions;
+using C2R.TelegramBot.Services.Bots;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot.Types;

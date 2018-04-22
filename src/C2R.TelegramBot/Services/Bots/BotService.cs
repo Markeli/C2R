@@ -2,9 +2,8 @@
 using JetBrains.Annotations;
 using Microsoft.Extensions.Options;
 using Telegram.Bot;
-using Telegram.Bot.Args;
 
-namespace C2RTelegramBot.Services
+namespace C2R.TelegramBot.Services.Bots
 {
     public class BotService : IBotService
     {

@@ -2,26 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using C2RTelegramBot.Services.Commands;
+using C2R.TelegramBot.Extensions;
+using C2R.TelegramBot.Services.Bots;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot.Types;
 
-namespace C2RTelegramBot.Services
+namespace C2R.TelegramBot.Services
 {
     public class UpdateService : IUpdateService
     {
         [NotNull] 
         private readonly ICollection<IUpdateProcessor> _updateProcessors;
 
-        [NotNull] private readonly ILogger<UpdateService> _logger;
+        [NotNull]
+        private readonly ILogger<UpdateService> _logger;
 
+        [NotNull]
+        private readonly IBotService _botService;
+        
         public UpdateService(
             [NotNull] ICollection<IUpdateProcessor> updateProcessors,
-            [NotNull] ILogger<UpdateService> logger)
+            [NotNull] ILogger<UpdateService> logger, 
+            [NotNull] IBotService botService)
         {
             _updateProcessors = updateProcessors ?? throw new ArgumentNullException(nameof(updateProcessors));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _botService = botService ?? throw new ArgumentNullException(nameof(botService));
         }
 
         public async Task ProcessUpdateAsync(Update update)
@@ -37,7 +44,8 @@ namespace C2RTelegramBot.Services
             }
             catch (Exception e)
             {
-                _logger.LogError("Processing message update error", e);
+                _logger.LogError($"Processing message update error: {e.Message}", e);
+               await _botService.Client.SendTextMessageAsync(update.GetChatId(), "Something went wrong. We are working on it. ");
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace C2RTelegramBot
+﻿namespace C2R.TelegramBot
 {
     public static class ServerConfigConstants
     {

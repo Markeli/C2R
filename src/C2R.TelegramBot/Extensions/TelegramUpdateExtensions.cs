@@ -1,7 +1,7 @@
 ﻿using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace C2RTelegramBot.Extensions
+namespace C2R.TelegramBot.Extensions
 {
     internal static class TelegramUpdateExtensions
     {

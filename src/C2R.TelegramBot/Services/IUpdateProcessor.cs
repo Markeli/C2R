@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using Telegram.Bot.Types;
 
-namespace C2RTelegramBot.Services.Commands
+namespace C2R.TelegramBot.Services
 {
     public interface IUpdateProcessor
     {

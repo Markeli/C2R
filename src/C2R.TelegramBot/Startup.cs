@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using C2R.TelegramBot.Services;
+using C2R.TelegramBot.Services.Bots;
 using C2R.TelegramBot.Services.Commands;
-using C2RTelegramBot.Services;
-using C2RTelegramBot.Services.Commands;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace C2RTelegramBot
+namespace C2R.TelegramBot
 {
     public class Startup
     {

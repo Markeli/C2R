@@ -5,6 +5,10 @@ namespace C2R.Core.Contracts
 {
     public interface IReminderConfigService
     {
+        void SetDefaultProviderStrategy(Guid id);
+        
+        void SetDefaultCommunication(Guid id);
+        
         void CreateDefaultConfig(long teamId);
         
         [NotNull]
