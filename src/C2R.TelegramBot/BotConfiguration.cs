@@ -1,0 +1,7 @@
+﻿namespace C2RTelegramBot
+{
+    public class BotConfiguration
+    {
+        public string BotToken { get; set; }
+    }
+}
