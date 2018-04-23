@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 
-namespace C2R.TelegramBot.Services.Communications
+namespace C2R.TelegramBot.Services.Communicators
 {
     public class CommunicatorFactory : ICommunicatorFactory
     {

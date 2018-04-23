@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using C2R.Core.Contracts;
 using C2R.Core.Data;
+using C2R.Core.Data.Abstract;
 using C2R.Core.Data.Entities;
 using C2R.Core.Mappers;
 using JetBrains.Annotations;
