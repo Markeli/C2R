@@ -66,7 +66,9 @@ namespace C2R.TelegramBot.Services.Commands
 
             var chatId = update.GetChatId();
             
-            var team = _teamService.GetTeam(chatId.Identifier);
+            var team = await _teamService
+                .GetTeamAsync(chatId.Identifier)
+                .ConfigureAwait(false);
             var config = _configService.GetConfig(team.Id);
             var communicator = _communicatorFactory.Create<IRegisterCommandCommunicator>(config.CommunicationMode);
             
@@ -87,7 +89,7 @@ namespace C2R.TelegramBot.Services.Commands
                     TelegramUserId = telegramUserId,
                     TelegramUsername = update.Message.From.Username
                 };
-                _teamService.AddTeamMember(team.Id, teamMember);
+                _teamService.AddTeamMemberAsync(team.Id, teamMember);
 
                 await communicator.NotifyOnSuccessAssync(chatId, teamMember)
                     .ConfigureAwait(false);

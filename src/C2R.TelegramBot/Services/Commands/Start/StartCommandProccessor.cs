@@ -61,11 +61,15 @@ namespace C2R.TelegramBot.Services.Commands
 
             var chatId = update.GetChatId();
 
-            var isTeamRegisted = _teamService.IsTeamRegistered(chatId.Identifier);
+            var isTeamRegisted = await _teamService
+                .IsTeamRegisteredAsync(chatId.Identifier)
+                .ConfigureAwait(false);
             TeamConfig config;
             if (isTeamRegisted)
             {
-                var team = _teamService.GetTeam(chatId.Identifier);
+                var team = await _teamService
+                    .GetTeamAsync(chatId.Identifier)
+                    .ConfigureAwait(false);
                 config = _configService.GetConfig(team.Id);
             }
             else
@@ -88,7 +92,9 @@ namespace C2R.TelegramBot.Services.Commands
                 {
                     TelegramChatId = chatId.Identifier
                 };
-                var teamId = _teamService.CreateTeam(team);
+                var teamId = await _teamService
+                    .CreateTeamAsync(team)
+                    .ConfigureAwait(false);
                 config.TeamId = teamId;
 
                 _configService.CreateConfig(config);

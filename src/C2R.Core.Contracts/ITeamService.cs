@@ -1,20 +1,21 @@
-﻿using JetBrains.Annotations;
+﻿using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace C2R.Core.Contracts
 {
     public interface ITeamService
     {
-        long CreateTeam([NotNull] Team team);
+        Task<long> CreateTeamAsync([NotNull] Team team);
 
-        void DeleteTeam(long teamId);
+        Task DeleteTeamAsync(long teamId);
 
-        bool IsTeamRegistered(long telegramChatId);
+        Task<bool> IsTeamRegisteredAsync(long telegramChatId);
         
         [NotNull]
-        Team GetTeam(long telegramChatId);
+        Task<Team> GetTeamAsync(long telegramChatId);
         
-        void AddTeamMember(long teamId, [NotNull] TeamMember teamMember);
+        Task AddTeamMemberAsync(long teamId, [NotNull] TeamMember teamMember);
 
-        void RemoveTeamMember(long teamId, long teamMemberId);
+        Task RemoveTeamMemberAsync(long teamId, long teamMemberId);
     }
 }

@@ -70,7 +70,7 @@ namespace C2R.TelegramBot.Services.Commands
                     $"{GetType().Name} can not procces message update with Id {update.Id} and type {update.Type}");
 
             var chatId = update.GetChatId();
-            var team = _teamService.GetTeam(chatId.Identifier);
+            var team = _teamService.GetTeamAsync(chatId.Identifier);
             var config = _configService.GetConfig(team.Id);
 
             var communicator = _communicatorFactory.Create<IStopReminderCommandCommunicator>(config.CommunicationMode);

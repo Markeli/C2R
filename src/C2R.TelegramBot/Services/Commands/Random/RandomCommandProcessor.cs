@@ -70,7 +70,9 @@ namespace C2R.TelegramBot.Services.Commands
             if (!canProcess) throw new ArgumentException($"{GetType().Name} can not procces message update with Id {update.Id} and type {update.Type}");
 
             var chatId = update.GetChatId();
-            var team = _teamService.GetTeam(chatId.Identifier);
+            var team = await _teamService
+                .GetTeamAsync(chatId.Identifier)
+                .ConfigureAwait(false);
             var config = _configService.GetConfig(team.Id);
 
             var communicator = _communicatorFactory.Create<IRandomCommandCommunciator>(config.CommunicationMode);
