@@ -8,6 +8,8 @@ namespace C2R.Core.Contracts
         
         public long TelegramUserId { get; set; }
         
+        public string TelegramUsername { get; set; }
+        
         public DateTime? LastReviewTimeUtc { get; set; }
     }
 }

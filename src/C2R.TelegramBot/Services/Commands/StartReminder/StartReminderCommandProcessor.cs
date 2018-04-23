@@ -84,7 +84,7 @@ namespace C2R.TelegramBot.Services.Commands
                     return;
                 }
                 _reminderScheduler.CreateReminder(team.Id, config.RemindTimeUtc);
-                communicator.NotifyOnSuccessAsync(chatId)
+                communicator.NotifyOnSuccessAsync(chatId, config.RemindTimeUtc)
                     .ConfigureAwait(false);
             }
             catch (Exception e)

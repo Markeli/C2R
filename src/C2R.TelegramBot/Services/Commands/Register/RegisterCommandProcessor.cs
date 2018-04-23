@@ -84,7 +84,8 @@ namespace C2R.TelegramBot.Services.Commands
                 
                 var teamMember = new TeamMember
                 {
-                    TelegramUserId = telegramUserId
+                    TelegramUserId = telegramUserId,
+                    TelegramUsername = update.Message.From.Username
                 };
                 _teamService.AddTeamMember(team.Id, teamMember);
 

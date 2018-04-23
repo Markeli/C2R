@@ -14,7 +14,8 @@ namespace C2R.TelegramBot.Services.Commands
             TimeSpan remindTimeUtc);
         
         Task NotifyOnSuccessAsync(
-            [NotNull] ChatId chatId);
+            [NotNull] ChatId chatId,
+            TimeSpan remindTimeUtc);
         
         Task NotifyOnFailureAsync(ChatId chatId);
     }

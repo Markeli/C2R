@@ -75,7 +75,7 @@ namespace C2R.TelegramBot.Services.Commands
                 var teamMember = team.Members.FirstOrDefault(x => x.TelegramUserId == telegramUserId);
                 if (teamMember == null)
                 {
-                    await communicator.NotifyOnNotRegisteredUserAsync(chatId).ConfigureAwait(false);
+                    await communicator.NotifyOnNotRegisteredUserAsync(chatId, teamMember).ConfigureAwait(false);
                     return;
                 }
                 _teamService.RemoveTeamMember(team.Id, teamMember.Id);
