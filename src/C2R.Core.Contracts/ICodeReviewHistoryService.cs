@@ -1,11 +1,12 @@
-﻿using JetBrains.Annotations;
+﻿using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace C2R.Core.Contracts
 {
     public interface ICodeReviewHistoryService
     {
-        void AddReview([NotNull] HistoryEntry entry);
+        Task AddReviewAsync([NotNull] HistoryEntry entry);
 
-        void RemoveLastReview(long teamId);
+        Task RemoveLastReviewAsync(long teamId);
     }
 }
