@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using C2R.TelegramBot.Services;
+using C2R.TelegramBot.Services.Bots;
+using C2R.TelegramBot.Services.Commands;
+using C2R.TelegramBot.Services.Communications;
+using JetBrains.Annotations;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace C2R.TelegramBot.Extensions
+{
+    public static class C2RBotServiceCollectionsExtension
+    {
+        public static void AddC2RBot([NotNull] this IServiceCollection services, [NotNull] IConfigurationRoot configuration)
+        {
+            if (services == null) throw new ArgumentNullException(nameof(services));
+            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
+            services.AddSingleton<IUpdateService, UpdateService>();
+            services.AddSingleton<IUpdateProcessor, AnotherReviewerCommandProcessor>();
+            services.AddSingleton<IUpdateProcessor, RandomCommandProcessor>();
+            services.AddSingleton<IUpdateProcessor, RegisterCommandProcessor>();
+            services.AddSingleton<IUpdateProcessor, ReviewerCommandProcessor>();
+            services.AddSingleton<IUpdateProcessor, StartCommandProccessor>();
+            services.AddSingleton<IUpdateProcessor, StartReminderCommandProcessor>();
+            services.AddSingleton<IUpdateProcessor, StopReminderCommandProcessor>();
+            services.AddSingleton<IUpdateProcessor, UnregisterCommandProcessor>();
+            services.AddTransient<ICollection<IUpdateProcessor>>(c => c.GetServices<IUpdateProcessor>()?.ToList() ?? new List<IUpdateProcessor>(0));
+            services.AddSingleton<IBotService, BotService>();
+            services.Configure<BotConfiguration>(configuration.GetSection("BotConfiguration"));
+            services.AddSingleton<ICommunicatorFactory, CommunicatorFactory>();
+        }
+        
+        
+    }
+}

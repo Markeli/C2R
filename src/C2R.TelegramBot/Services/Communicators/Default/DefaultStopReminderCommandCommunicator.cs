@@ -6,30 +6,31 @@ using Telegram.Bot.Types;
 
 namespace C2R.TelegramBot.Services.Commands
 {
-    public class StartReminderCommandCommunicator : IStartReminderCommandCommunicator
+    public class DefaultStopReminderCommandCommunicator : IStopReminderCommandCommunicator
     {
         [NotNull]
         private readonly IBotService _botService;
 
-        public StartReminderCommandCommunicator([NotNull] IBotService botService)
+        public DefaultStopReminderCommandCommunicator([NotNull] IBotService botService)
         {
             _botService = botService ?? throw new ArgumentNullException(nameof(botService));
         }
 
-        public Task NotifyOnAlreadyStartedAsync(ChatId chatId, TimeSpan remindTimeUtc)
+
+        public Task NotifyOnNotYetStartedAsync(ChatId chatId)
         {
             return _botService.Client
                 .SendTextMessageAsync(
                     chatId,
-                    $"Я уже напоминаю о код ревью каждый день в {remindTimeUtc} (UTC)");
+                    "Чтобы я перстал напоминать о код ревью, надо сначала попросить меня напоминать о нем.");
         }
 
-        public Task NotifyOnSuccessAsync(ChatId chatId, TimeSpan remindTimeUtc)
+        public Task NotifyOnSuccessAsync(ChatId chatId)
         {
             return _botService.Client
                 .SendTextMessageAsync(
                     chatId,
-                    $"Потрясно. Я буду напоминать о код ревью каждый день в {remindTimeUtc} (UTC)");
+                    "Как скажите. Больше не буду напоминать вам о код ревью");
         }
 
         public Task NotifyOnFailureAsync(ChatId chatId)
@@ -37,7 +38,7 @@ namespace C2R.TelegramBot.Services.Commands
             return _botService.Client
                 .SendTextMessageAsync(
                     chatId,
-                    "Мой память меня подводит. Я не смогу вспомнить, когда вам напомнить о код ревью. Пошел за таблетками к врачу");
+                    "Моя память снова меня подводит. Но теперь я могу ничего забыть и все равно буду напоминать. Пошел за таблетками к врачу");
         }
     }
 }

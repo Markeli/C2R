@@ -7,12 +7,12 @@ using Telegram.Bot.Types;
 
 namespace C2R.TelegramBot.Services.Commands
 {
-    public class ReviewerCommandCommunicator : IReviewerCommandCommunicator
+    public class DefaultReviewerCommandCommunicator : IReviewerCommandCommunicator
     {
         [NotNull]
         private readonly IBotService _botService;
 
-        public ReviewerCommandCommunicator([NotNull] IBotService botService)
+        public DefaultReviewerCommandCommunicator([NotNull] IBotService botService)
         {
             _botService = botService;
         }

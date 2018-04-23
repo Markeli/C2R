@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using C2R.TelegramBot.Extensions;
 using C2R.TelegramBot.Services;
 using C2R.TelegramBot.Services.Bots;
 using C2R.TelegramBot.Services.Commands;
@@ -34,22 +35,15 @@ namespace C2R.TelegramBot
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
-            services.AddSingleton<IUpdateService, UpdateService>();
-            services.AddSingleton<IUpdateProcessor, StartCommandProccessor>();
-            services.AddTransient<ICollection<IUpdateProcessor>>(c => c.GetServices<IUpdateProcessor>()?.ToList() ?? new List<IUpdateProcessor>(0));
-            services.AddSingleton<IBotService, BotService>();
-
-            services.Configure<BotConfiguration>(_configuration.GetSection("BotConfiguration"));
+            services.AddC2RBot(_configuration);
+            services.AddC2RBotDefaultCommunicators();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
             IApplicationBuilder app, 
-            IHostingEnvironment env, 
-            IServiceProvider provider,
-            IApplicationLifetime applicationLifetime)
+            IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -57,6 +51,7 @@ namespace C2R.TelegramBot
             }
 
             app.UseMvc();
+            app.UseC2RBotDefaultCommunicators();
         }
     }
 }
