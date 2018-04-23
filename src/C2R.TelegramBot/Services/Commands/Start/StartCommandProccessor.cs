@@ -70,7 +70,9 @@ namespace C2R.TelegramBot.Services.Commands
                 var team = await _teamService
                     .GetTeamAsync(chatId.Identifier)
                     .ConfigureAwait(false);
-                config = _configService.GetConfig(team.Id);
+                config = await _configService
+                    .GetConfigAsync(team.Id)
+                    .ConfigureAwait(false);
             }
             else
             {
@@ -97,7 +99,7 @@ namespace C2R.TelegramBot.Services.Commands
                     .ConfigureAwait(false);
                 config.TeamId = teamId;
 
-                _configService.CreateConfig(config);
+                _configService.CreateConfigAsync(config);
 
                await communicator.NotifyOnSuccessAssync(chatId).ConfigureAwait(false);
 

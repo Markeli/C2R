@@ -67,7 +67,9 @@ namespace C2R.TelegramBot.Services.Commands
             var team = await _teamService
                 .GetTeamAsync(chatId.Identifier)
                 .ConfigureAwait(false);
-            var config = _configService.GetConfig(team.Id);
+            var config = await _configService
+                .GetConfigAsync(team.Id)
+                .ConfigureAwait(false);
 
             var communicator = _communicatorFactory.Create<IUnregisterCommandCommunicator>(config.CommunicationMode);
 

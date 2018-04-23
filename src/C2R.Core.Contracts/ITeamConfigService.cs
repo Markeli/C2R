@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace C2R.Core.Contracts
@@ -12,15 +13,14 @@ namespace C2R.Core.Contracts
         [NotNull]
         TeamConfig GetDefaultConfig();
         
-        void CreateConfig([NotNull] TeamConfig config);
+        Task CreateConfigAsync([NotNull] TeamConfig config);
         
         [NotNull]
-        TeamConfig GetConfig(long teamId);
+        Task<TeamConfig> GetConfigAsync(long teamId);
 
-        void DeleteConfig(long configId);
+        Task DeleteConfigAsync(long configId);
 
-        void UpdateRemindTime(long teamId, TimeSpan remindTime);
+        Task UpdateRemindTimeAsync(long teamId, TimeSpan remindTime);
 
-        void UpdateLastRemindDateTime(long teamId, DateTime remindTimeUtc);
     }
 }
