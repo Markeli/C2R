@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
 using C2R.Core.Contracts;
 using C2R.TelegramBot.Services.Bots;
+using C2R.TelegramBot.Services.Commands.Register;
 using JetBrains.Annotations;
 using Telegram.Bot.Types;
 
-namespace C2R.TelegramBot.Services.Commands
+namespace C2R.TelegramBot.Services.Communicators.Default
 {
     public class DefaultRegisterCommandCommunicator : IRegisterCommandCommunicator
     {

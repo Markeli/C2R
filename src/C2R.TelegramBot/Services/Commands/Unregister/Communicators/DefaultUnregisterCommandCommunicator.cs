@@ -5,7 +5,7 @@ using C2R.TelegramBot.Services.Bots;
 using JetBrains.Annotations;
 using Telegram.Bot.Types;
 
-namespace C2R.TelegramBot.Services.Commands
+namespace C2R.TelegramBot.Services.Commands.Unregister.Communicators
 {
     public class DefaultUnregisterCommandCommunicator : IUnregisterCommandCommunicator
     {

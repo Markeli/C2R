@@ -3,15 +3,14 @@ using System.Threading.Tasks;
 using C2R.Core.Contracts;
 using C2R.TelegramBot.Extensions;
 using C2R.TelegramBot.Services.Bots;
-using C2R.TelegramBot.Services.Communications;
+using C2R.TelegramBot.Services.Communicators;
 using C2R.TelegramBot.Services.Scheduler;
 using JetBrains.Annotations;
-using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace C2R.TelegramBot.Services.Commands
+namespace C2R.TelegramBot.Services.Commands.StartReminder
 {
     public class StartReminderCommandProcessor : IUpdateProcessor
     {

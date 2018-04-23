@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using C2R.Core.Contracts;
-using C2R.TelegramBot.Services.Communications;
+using C2R.TelegramBot.Services.Communicators;
 using Telegram.Bot.Types;
 
-namespace C2R.TelegramBot.Services.Commands
+namespace C2R.TelegramBot.Services.Commands.Register
 {
     public interface IRegisterCommandCommunicator : ICommunicator
     {

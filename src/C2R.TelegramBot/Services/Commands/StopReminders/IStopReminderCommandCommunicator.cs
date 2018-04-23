@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using C2R.TelegramBot.Services.Communications;
+using C2R.TelegramBot.Services.Communicators;
 using JetBrains.Annotations;
 using Telegram.Bot.Types;
 
-namespace C2R.TelegramBot.Services.Commands
+namespace C2R.TelegramBot.Services.Commands.StopReminders
 {
     public interface IStopReminderCommandCommunicator : ICommunicator
     {

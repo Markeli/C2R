@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace C2R.TelegramBot.Services.Commands
+namespace C2R.TelegramBot.Services.Communicators.Default
 {
     public static class DefaultCommunictionMode
     {

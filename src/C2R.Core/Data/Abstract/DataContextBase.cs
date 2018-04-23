@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 
-namespace C2R.Core.Data
+namespace C2R.Core.Data.Abstract
 {
     public abstract class DataContextBase<TContext> : DbContext
         where TContext : DbContext

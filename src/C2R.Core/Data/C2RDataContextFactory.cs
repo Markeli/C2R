@@ -1,4 +1,5 @@
 ﻿using System;
+using C2R.Core.Data.Abstract;
 using Microsoft.EntityFrameworkCore;
 
 namespace C2R.Core.Data
