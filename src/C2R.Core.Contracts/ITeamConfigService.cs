@@ -8,7 +8,7 @@ namespace C2R.Core.Contracts
     {
         void SetDefaultProviderStrategy(Guid id);
         
-        void SetDefaultCommunication(Guid id);
+        void SetDefaultCommunicationMode(Guid id);
 
         [NotNull]
         TeamConfig GetDefaultConfig();

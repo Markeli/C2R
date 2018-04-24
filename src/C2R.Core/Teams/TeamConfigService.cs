@@ -30,7 +30,7 @@ namespace C2R.Core.Teams
             _defaultProviderStrategy = id;
         }
 
-        public void SetDefaultCommunication(Guid id)
+        public void SetDefaultCommunicationMode(Guid id)
         {
             _defaultCommunicationMode = id;
         }

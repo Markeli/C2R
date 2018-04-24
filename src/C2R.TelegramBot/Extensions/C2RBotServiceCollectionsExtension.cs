@@ -1,6 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using C2R.Core;
+using C2R.Core.Contracts;
+using C2R.Core.Data;
+using C2R.Core.Data.Abstract;
+using C2R.Core.ReviewerProviderStrategies;
+using C2R.Core.Teams;
 using C2R.TelegramBot.Services;
 using C2R.TelegramBot.Services.Bots;
 using C2R.TelegramBot.Services.Commands;
@@ -41,8 +47,20 @@ namespace C2R.TelegramBot.Extensions
             services.AddSingleton<ICommunicatorFactory, CommunicatorFactory>();
 
             services.AddSingleton<IReminderScheduler, ReminderScheduler>();
+
+            services.AddSingleton<IC2RDataContextFactory, C2RDataContextFactory>();
+            
+            services.AddTransient<ITeamService, TeamService>();
+            services.AddTransient<ITeamConfigService, TeamConfigService>();
+            services.AddTransient<ICodeReviewHistoryService, CodeReviewHistoryService>();
+
+            services.AddTransient<ICodeReviewerProvider, CodeReviewerProvider>();
+            
+            services.AddTransient<ICodeReviewerProviderStrategy, RandomCodeReviwerProviderStrategy>();
+            services.AddTransient<IRandomCodeReviewerProviderStrategy, RandomCodeReviwerProviderStrategy>();
+            services.AddTransient<ICodeReviewerProviderStrategy, RoundRobinCodeReviewerProviderStrategy>();
+            
         }
-        
-        
     }
+    
 }

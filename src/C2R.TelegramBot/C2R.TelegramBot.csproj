@@ -21,5 +21,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\C2R.Core.Contracts\C2R.Core.Contracts.csproj" />
+    <ProjectReference Include="..\C2R.Core\C2R.Core.csproj" />
   </ItemGroup>
 </Project>

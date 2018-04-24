@@ -20,9 +20,10 @@ namespace C2R.TelegramBot.Services.Communicators
             _storage = new Dictionary<Type, List<Tuple<Guid, Type>>>();
         }
 
-        public void SetDefaultCommunicationMode(Guid mode)
+        public Guid? DefaultCommunicationMode
         {
-            _defaultCommunicationMode = mode;
+            get => _defaultCommunicationMode;
+            set => _defaultCommunicationMode = value;
         }
 
         public void Register<TI, TT>(Guid communicationMode) 

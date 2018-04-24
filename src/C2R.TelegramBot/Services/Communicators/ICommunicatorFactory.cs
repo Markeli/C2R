@@ -5,7 +5,7 @@ namespace C2R.TelegramBot.Services.Communicators
 {
     public interface ICommunicatorFactory
     {
-        void SetDefaultCommunicationMode(Guid mode);
+        Guid? DefaultCommunicationMode { get; set; }
         
         void Register<TI, TT>(Guid communicationMode) 
             where TI: class, ICommunicator

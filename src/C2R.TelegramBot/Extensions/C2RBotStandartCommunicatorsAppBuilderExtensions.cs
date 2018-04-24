@@ -27,7 +27,7 @@ namespace C2R.TelegramBot.Extensions
             var communicatorsFactory = appBuilder.ApplicationServices.GetService<ICommunicatorFactory>();
             if (isDefault)
             {
-                communicatorsFactory.SetDefaultCommunicationMode(communicationMode);
+                communicatorsFactory.DefaultCommunicationMode = communicationMode;
             }
             
             communicatorsFactory.Register<IAnotherReviewerCommandCommunicator, StandartAnotherReviewerCommandCommunicator>(communicationMode);

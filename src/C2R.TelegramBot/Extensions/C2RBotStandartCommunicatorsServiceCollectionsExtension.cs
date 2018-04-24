@@ -14,9 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace C2R.TelegramBot.Extensions
 {
-    public static class C2RBotDefaultCommunicatorsServiceCollectionsExtension
+    public static class C2RBotStandartCommunicatorsServiceCollectionsExtension
     {
-        public static void AddC2RBotDefaultCommunicators([NotNull] this IServiceCollection services)
+        public static void AddC2RBotStandartCommunicators([NotNull] this IServiceCollection services)
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
             

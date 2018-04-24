@@ -28,7 +28,7 @@ namespace C2R.TelegramBot
             new ConfigurationBuilder()
                 .SetBasePath(contentRoot)
                 .AddJsonFile("appsettings.json")
-                .AddJsonFile("botSettings.json");
+                .AddJsonFile("botSettings.json", optional:true);
         
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -36,7 +36,7 @@ namespace C2R.TelegramBot
         {
             services.AddMvc();
             services.AddC2RBot(_configuration);
-            services.AddC2RBotDefaultCommunicators();
+            services.AddC2RBotStandartCommunicators();
 
         }
 
@@ -52,6 +52,7 @@ namespace C2R.TelegramBot
 
             app.UseMvc();
             app.UseC2RBotStandartCommunicators(true);
+            app.UseC2RBot();
         }
     }
 }
