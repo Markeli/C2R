@@ -4,7 +4,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Handlers" />
-    <Folder Include="Services\Commands\Random\Communicators" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>

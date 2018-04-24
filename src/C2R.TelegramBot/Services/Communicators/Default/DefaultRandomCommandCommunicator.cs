@@ -35,6 +35,15 @@ namespace C2R.TelegramBot.Services.Communicators.Default
                     $"Я сделал свой выбор. Код ревью проводит @{codeReviewerResponse.CodeReviwer.TelegramUsername}");
         }
 
+        public Task NotifyOnReselectedrReviewerAsync(ChatId chatId, CodeReviewerResponse codeReviewerResponse)
+        {
+            if (codeReviewerResponse.CodeReviwer == null) throw new ArgumentNullException(nameof(codeReviewerResponse.CodeReviwer));
+            return _botService.Client
+                .SendTextMessageAsync(
+                    chatId,
+                    $"Жребий уже определял, кто проводит сегодня код ревью. Это @{codeReviewerResponse.CodeReviwer.TelegramUsername}!");
+        }
+
         public Task NotifyOnFailureAsync(ChatId chatId)
         {
             return _botService.Client

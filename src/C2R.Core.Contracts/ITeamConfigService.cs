@@ -22,6 +22,7 @@ namespace C2R.Core.Contracts
         [NotNull]
         Task DeleteConfigAsync(long configId);
 
+        [NotNull]
         Task UpdateRemindTimeAsync(long teamId, TimeSpan remindTime);
 
     }

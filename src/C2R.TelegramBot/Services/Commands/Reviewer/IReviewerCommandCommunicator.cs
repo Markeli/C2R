@@ -8,13 +8,22 @@ namespace C2R.TelegramBot.Services.Commands.Reviewer
 {
     public interface IReviewerCommandCommunicator : ICommunicator
     {
+        [NotNull]
         Task NotifyOnNoReviewerAsync(
             [NotNull] ChatId chatId);
         
+        [NotNull]
         Task NotifyOnSuccessAsync(
             [NotNull] ChatId chatId, 
             [NotNull] CodeReviewerResponse codeReviewerResponse);
         
+        
+        [NotNull]
+        Task NotifyOnReselectedrReviewerAsync(
+            [NotNull] ChatId chatId, 
+            [NotNull] CodeReviewerResponse codeReviewerResponse);
+        
+        [NotNull]
         Task NotifyOnFailureAsync(ChatId chatId);
     }
 }

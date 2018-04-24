@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using C2R.Core.Contracts;
 using C2R.TelegramBot.Services.Bots;
 using C2R.TelegramBot.Services.Commands.Register;
@@ -14,7 +15,7 @@ namespace C2R.TelegramBot.Services.Communicators.Default
 
         public DefaultRegisterCommandCommunicator([NotNull] IBotService botService)
         {
-            _botService = botService;
+            _botService = botService ?? throw new ArgumentNullException(nameof(botService));
         }
 
         public Task NotifyOnAlreadyRegisteredUserAssync(ChatId chatId, TeamMember teamMember)

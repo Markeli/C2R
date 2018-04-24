@@ -15,7 +15,7 @@ namespace C2R.TelegramBot.Services.Communicators.Default
 
         public DefaultReviewerCommandCommunicator([NotNull] IBotService botService)
         {
-            _botService = botService;
+            _botService = botService ?? throw new ArgumentNullException(nameof(botService));
         }
 
         public Task NotifyOnNoReviewerAsync(ChatId chatId)
@@ -33,6 +33,15 @@ namespace C2R.TelegramBot.Services.Communicators.Default
                 .SendTextMessageAsync(
                     chatId,
                     $"И сегодня код ревью проводит @{codeReviewerResponse.CodeReviwer.TelegramUsername}");
+        }
+
+        public Task NotifyOnReselectedrReviewerAsync(ChatId chatId, CodeReviewerResponse codeReviewerResponse)
+        {
+            if (codeReviewerResponse.CodeReviwer == null) throw new ArgumentNullException(nameof(codeReviewerResponse.CodeReviwer));
+            return _botService.Client
+                .SendTextMessageAsync(
+                    chatId,
+                    $"Сегодня уже был выбран ревьюер, и им стал @{codeReviewerResponse.CodeReviwer.TelegramUsername}");
         }
 
         public Task NotifyOnFailureAsync(ChatId chatId)
