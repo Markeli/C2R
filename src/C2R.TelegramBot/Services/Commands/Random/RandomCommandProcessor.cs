@@ -34,7 +34,7 @@ namespace C2R.TelegramBot.Services.Commands.Random
         private readonly ICommunicatorFactory _communicatorFactory;
         
         public RandomCommandProcessor(
-            [NotNull] ILogger logger, 
+            [NotNull] ILogger<RandomCommandProcessor> logger, 
             [NotNull] IBotService botService, 
             [NotNull] ITeamService teamService, 
             [NotNull] ITeamConfigService configService, 

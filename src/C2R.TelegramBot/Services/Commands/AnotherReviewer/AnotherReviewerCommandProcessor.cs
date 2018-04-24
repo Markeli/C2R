@@ -34,7 +34,7 @@ namespace C2R.TelegramBot.Services.Commands.AnotherReviewer
         private readonly ICommunicatorFactory _communicatorFactory;
         
         public AnotherReviewerCommandProcessor(
-            [NotNull] ILogger logger, 
+            [NotNull] ILogger<AnotherReviewerCommandProcessor> logger, 
             [NotNull] IBotService botService, 
             [NotNull] ITeamService teamService, 
             [NotNull] ITeamConfigService configService, 

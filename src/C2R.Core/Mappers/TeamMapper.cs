@@ -11,16 +11,15 @@ namespace C2R.Core.Mappers
         {
             if (entity == null) return null;
 
-            return new Team
-            {
-                Id = entity.Id,
-                TelegramChatId = entity.TelegramChatId,
-                Members = entity.Members == null
+            return new Team(
+                entity.Id, 
+                entity.TelegramChatId, 
+                    entity.Members == null
                     ? new List<TeamMember>(0)
                     : entity.Members
                         .Select(x => x.ToDomain())
                         .ToList()
-            };
+            );
         }
 
         public static TeamEntity ToEntity(this Team team)

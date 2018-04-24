@@ -36,6 +36,10 @@ namespace C2R.Core.Data.Configurations
                 .WithOne(x => x.ReviewedTeamMember)
                 .HasForeignKey(x => x.ReviewedTeamMemberId);
 
+            builder
+                .HasOne(x => x.Team)
+                .WithMany(x => x.Members)
+                .HasForeignKey(x => x.TeamId);
 
         }
     }

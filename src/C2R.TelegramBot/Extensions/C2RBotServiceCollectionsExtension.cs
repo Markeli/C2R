@@ -21,6 +21,7 @@ using C2R.TelegramBot.Services.Commands.Unregister;
 using C2R.TelegramBot.Services.Communicators;
 using C2R.TelegramBot.Services.Scheduler;
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -48,18 +49,22 @@ namespace C2R.TelegramBot.Extensions
 
             services.AddSingleton<IReminderScheduler, ReminderScheduler>();
 
+            var dbContextOptionsBuilder = new DbContextOptionsBuilder<C2RDataContext>();
+            dbContextOptionsBuilder.UseInMemoryDatabase(nameof(C2RDataContext));
+            var options = dbContextOptionsBuilder.Options;
+
+            services.AddSingleton(options);
             services.AddSingleton<IC2RDataContextFactory, C2RDataContextFactory>();
             
             services.AddTransient<ITeamService, TeamService>();
-            services.AddTransient<ITeamConfigService, TeamConfigService>();
+            services.AddSingleton<ITeamConfigService, TeamConfigService>();
             services.AddTransient<ICodeReviewHistoryService, CodeReviewHistoryService>();
 
-            services.AddTransient<ICodeReviewerProvider, CodeReviewerProvider>();
+            services.AddSingleton<ICodeReviewerProvider, CodeReviewerProvider>();
             
             services.AddTransient<ICodeReviewerProviderStrategy, RandomCodeReviwerProviderStrategy>();
             services.AddTransient<IRandomCodeReviewerProviderStrategy, RandomCodeReviwerProviderStrategy>();
             services.AddTransient<ICodeReviewerProviderStrategy, RoundRobinCodeReviewerProviderStrategy>();
-            
         }
     }
     

@@ -33,7 +33,7 @@ namespace C2R.TelegramBot.Services.Commands.StartReminder
         private readonly ICommunicatorFactory _communicatorFactory;
 
         public StartReminderCommandProcessor(
-            [NotNull] ILogger logger, 
+            [NotNull] ILogger<StartReminderCommandProcessor> logger, 
             [NotNull] IBotService botService, 
             [NotNull] ITeamService teamService, 
             [NotNull] ITeamConfigService configService, 

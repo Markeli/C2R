@@ -21,13 +21,21 @@ namespace C2R.TelegramBot.Extensions
             if (services == null) throw new ArgumentNullException(nameof(services));
             
             services.AddTransient<IAnotherReviewerCommandCommunicator, StandartAnotherReviewerCommandCommunicator>();
+            services.AddTransient<StandartAnotherReviewerCommandCommunicator, StandartAnotherReviewerCommandCommunicator>();
             services.AddTransient<IRandomCommandCommunciator, StandartRandomCommandCommunicator>();
+            services.AddTransient<StandartRandomCommandCommunicator, StandartRandomCommandCommunicator>();
             services.AddTransient<IRegisterCommandCommunicator, StandartRegisterCommandCommunicator>();
+            services.AddTransient<StandartRegisterCommandCommunicator, StandartRegisterCommandCommunicator>();
             services.AddTransient<IReviewerCommandCommunicator, StandartReviewerCommandCommunicator>();
+            services.AddTransient<StandartReviewerCommandCommunicator, StandartReviewerCommandCommunicator>();
             services.AddTransient<IStartCommandCommunicator, StandartStartCommandCommunicator>();
+            services.AddTransient<StandartStartCommandCommunicator, StandartStartCommandCommunicator>();
             services.AddTransient<IStartReminderCommandCommunicator, StandartStartReminderCommandCommunicator>();
+            services.AddTransient<StandartStartReminderCommandCommunicator, StandartStartReminderCommandCommunicator>();
             services.AddTransient<IStopReminderCommandCommunicator, StandartStopReminderCommandCommunicator>();
+            services.AddTransient<StandartStopReminderCommandCommunicator, StandartStopReminderCommandCommunicator>();
             services.AddTransient<IUnregisterCommandCommunicator, StandartUnregisterCommandCommunicator>();
+            services.AddTransient<StandartUnregisterCommandCommunicator, StandartUnregisterCommandCommunicator>();
         }
     }
 }

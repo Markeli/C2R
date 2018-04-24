@@ -34,7 +34,7 @@ namespace C2R.TelegramBot.Services.Commands.Reviewer
         
         
         public ReviewerCommandProcessor(
-            [NotNull] ILogger logger, 
+            [NotNull] ILogger<ReviewerCommandProcessor> logger, 
             [NotNull] IBotService botService, 
             [NotNull] ITeamService teamService, 
             [NotNull] ITeamConfigService configService, 

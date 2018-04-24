@@ -88,24 +88,27 @@ namespace C2R.TelegramBot.Services.Commands.Start
                         .ConfigureAwait(false);
                     return;
                 }
-                
-                var team = new Team
-                {
-                    TelegramChatId = chatId.Identifier
-                };
+
+                var team = new Team(0, chatId.Identifier);
                 var teamId = await _teamService
                     .CreateTeamAsync(team)
                     .ConfigureAwait(false);
                 config.TeamId = teamId;
 
-                _configService.CreateConfigAsync(config);
+                await _configService
+                    .CreateConfigAsync(config)
+                    .ConfigureAwait(false);
 
-               await communicator.NotifyOnSuccessAssync(chatId).ConfigureAwait(false);
+               await communicator
+                   .NotifyOnSuccessAssync(chatId)
+                   .ConfigureAwait(false);
 
             }
             catch (Exception e)
             {
-                await communicator.NotifyOnFailureAsync(chatId).ConfigureAwait(false);
+                await communicator
+                    .NotifyOnFailureAsync(chatId)
+                    .ConfigureAwait(false);
                 _logger.LogError($"Error on start command: {e.Message}", e);
             }
         }

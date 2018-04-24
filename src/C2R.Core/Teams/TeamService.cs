@@ -97,6 +97,10 @@ namespace C2R.Core.Teams
                 await context.Set<TeamMemberEntity>()
                     .AddAsync(entity)
                     .ConfigureAwait(false);
+
+                await context
+                    .SaveChangesAsync()
+                    .ConfigureAwait(false);
             }
         }
 

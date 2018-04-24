@@ -35,7 +35,7 @@ namespace C2R.TelegramBot.Services.Commands.Stop
         private readonly ICommunicatorFactory _communicatorsFactory;
 
         public StopCommandProcessor(
-            [NotNull] ILogger logger, 
+            [NotNull] ILogger<StopCommandProcessor> logger, 
             [NotNull] IBotService botService, 
             [NotNull] ITeamService teamService, 
             [NotNull] ITeamConfigService configService, 

@@ -17,7 +17,6 @@ namespace C2R.TelegramBot.Services.Commands.StopReminders
         private readonly string _commandName = "/stop_reminders";
 
         [NotNull] private readonly ILogger _logger;
-        [NotNull] private readonly IBotService _botService;
 
         [NotNull] private readonly ITeamService _teamService;
 
@@ -31,15 +30,13 @@ namespace C2R.TelegramBot.Services.Commands.StopReminders
         private readonly ITeamConfigService _configService;
 
         public StopReminderCommandProcessor(
-            [NotNull] ILogger logger,
-            [NotNull] IBotService botService,
+            [NotNull] ILogger<StopReminderCommandProcessor> logger,
             [NotNull] ITeamService teamService,
             [NotNull] IReminderScheduler reminderScheduler, 
             [NotNull] ICommunicatorFactory communicatorFactory, 
             [NotNull] ITeamConfigService configService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _botService = botService ?? throw new ArgumentNullException(nameof(botService));
             _teamService = teamService ?? throw new ArgumentNullException(nameof(teamService));
             _reminderScheduler = reminderScheduler ?? throw new ArgumentNullException(nameof(reminderScheduler));
             _communicatorFactory = communicatorFactory ?? throw new ArgumentNullException(nameof(communicatorFactory));

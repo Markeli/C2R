@@ -101,9 +101,6 @@ namespace C2R.TelegramBot.Services.Commands.Register
                     .ConfigureAwait(false);
                 _logger.LogError($"Error on random command: {e.Message}", e);
             }
-            
-
-            await _botService.Client.SendTextMessageAsync(update.GetChatId(), update.Message.Text);
         }
     }
 }
