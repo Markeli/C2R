@@ -81,10 +81,10 @@ namespace C2R.TelegramBot.Services.Commands.AnotherReviewer
                 _communicatorFactory.Create<IAnotherReviewerCommandCommunicator>(config.CommunicationMode);
             try
             {
-                var reviewerResponse = _codeReviewerProvider.GetCodeReviewer(
-                    ignoreHistory: true, 
+                var reviewerResponse = await _codeReviewerProvider.GetCodeReviewerAsync(
+                    returnTodaySelectedReviewer: false, 
                     team: team, 
-                    config: config);
+                    reviewerProviderStrategyId: config.CodeReviewerProvidingStrategyId);
                 if (reviewerResponse.CodeReviwer == null)
                 {
                     communicator.NotifyOnNoReviewerAsync(chatId)

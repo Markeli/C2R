@@ -15,7 +15,7 @@ namespace C2R.Core.Mappers
                 TeamId = entity.TeamId,
                 ReminderJobId = entity.ReminderJobId,
                 RemindTimeUtc = entity.RemindTimeUtc,
-                CodeReviewerProvidingStrategy = entity.CodeReviewerProvidingStrategy,
+                CodeReviewerProvidingStrategyId = entity.CodeReviewerProvidingStrategy,
                 CommunicationMode = entity.CommunicationMode
             };
         }
@@ -30,7 +30,7 @@ namespace C2R.Core.Mappers
                 TeamId = config.TeamId,
                 ReminderJobId = config.ReminderJobId,
                 RemindTimeUtc = config.RemindTimeUtc,
-                CodeReviewerProvidingStrategy = config.CodeReviewerProvidingStrategy,
+                CodeReviewerProvidingStrategy = config.CodeReviewerProvidingStrategyId,
                 CommunicationMode = config.CommunicationMode
             };
         }

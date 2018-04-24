@@ -10,7 +10,7 @@ namespace C2R.Core.Contracts
         
         public long? ReminderJobId { get; set; }
         
-        public Guid CodeReviewerProvidingStrategy { get; set; }
+        public Guid CodeReviewerProvidingStrategyId { get; set; }
         
         public Guid CommunicationMode { get; set; }
         

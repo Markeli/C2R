@@ -13,11 +13,13 @@ namespace C2R.Core.Contracts
         [NotNull]
         TeamConfig GetDefaultConfig();
         
+        [NotNull]
         Task CreateConfigAsync([NotNull] TeamConfig config);
         
         [NotNull]
         Task<TeamConfig> GetConfigAsync(long teamId);
 
+        [NotNull]
         Task DeleteConfigAsync(long configId);
 
         Task UpdateRemindTimeAsync(long teamId, TimeSpan remindTime);

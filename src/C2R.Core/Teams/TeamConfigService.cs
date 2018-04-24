@@ -45,7 +45,7 @@ namespace C2R.Core.Teams
             
             return new TeamConfig
             {
-                CodeReviewerProvidingStrategy = _defaultProviderStrategy.Value,
+                CodeReviewerProvidingStrategyId = _defaultProviderStrategy.Value,
                 CommunicationMode = _defaultCommunicationMode.Value,
                 RemindTimeUtc = _defaultRemindTimeUtc,
             };

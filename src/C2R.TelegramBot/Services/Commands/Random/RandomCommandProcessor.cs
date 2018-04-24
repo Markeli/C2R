@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using C2R.Core.Contracts;
+using C2R.Core.ReviewerProviderStrategies;
 using C2R.TelegramBot.Extensions;
 using C2R.TelegramBot.Services.Bots;
 using C2R.TelegramBot.Services.Communicators;
@@ -27,7 +28,7 @@ namespace C2R.TelegramBot.Services.Commands.Random
         private readonly ITeamConfigService _configService;
 
         [NotNull]
-        private readonly IRandomCodeReviewerProviderStrategy _codeReviewerProvider;
+        private readonly ICodeReviewerProvider _codeReviewerProvider;
 
         [NotNull]
         private readonly ICommunicatorFactory _communicatorFactory;
@@ -37,7 +38,7 @@ namespace C2R.TelegramBot.Services.Commands.Random
             [NotNull] IBotService botService, 
             [NotNull] ITeamService teamService, 
             [NotNull] ITeamConfigService configService, 
-            [NotNull] IRandomCodeReviewerProviderStrategy codeReviewerProvider, 
+            [NotNull] ICodeReviewerProvider codeReviewerProvider, 
             [NotNull] ICommunicatorFactory communicatorFactory)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -79,7 +80,10 @@ namespace C2R.TelegramBot.Services.Commands.Random
             var communicator = _communicatorFactory.Create<IRandomCommandCommunciator>(config.CommunicationMode);
             try
             {
-                var reviewerResponse = _codeReviewerProvider.GetCodeReviewer(ignoreHistory: true, team: team);
+                var reviewerResponse = await _codeReviewerProvider.GetCodeReviewerAsync(
+                    returnTodaySelectedReviewer: true, 
+                    team:team, 
+                    reviewerProviderStrategyId: DefaultCodeReviewerProviderStrategy.RandomStrategyId);
                 if (reviewerResponse.CodeReviwer == null)
                 {
                     communicator.NotifyOnNoReviewerAsync(chatId).ConfigureAwait(false);

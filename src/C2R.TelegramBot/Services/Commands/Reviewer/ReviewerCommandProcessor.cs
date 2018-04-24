@@ -67,7 +67,9 @@ namespace C2R.TelegramBot.Services.Commands.Reviewer
         public async Task ProcessAsync(Update update)
         {
             var canProcess = CanProcess(update);
-            if (!canProcess) throw new ArgumentException($"{GetType().Name} can not procces message update with Id {update.Id} and type {update.Type}");
+            if (!canProcess)
+                throw new ArgumentException(
+                    $"{GetType().Name} can not procces message update with Id {update.Id} and type {update.Type}");
 
             var chatId = update.GetChatId();
             var team = await _teamService
@@ -80,10 +82,11 @@ namespace C2R.TelegramBot.Services.Commands.Reviewer
             var communicator = _communicatorFactory.Create<IReviewerCommandCommunicator>(config.CommunicationMode);
             try
             {
-                var reviewerResponse = _codeReviewerProvider.GetCodeReviewer(
-                    ignoreHistory: false, 
-                    team: team, 
-                    config: config);
+                var reviewerResponse = await _codeReviewerProvider.GetCodeReviewerAsync(
+                        returnTodaySelectedReviewer: true,
+                        team: team,
+                        reviewerProviderStrategyId: config.CodeReviewerProvidingStrategyId)
+                    .ConfigureAwait(false);
                 if (reviewerResponse.CodeReviwer == null)
                 {
                     communicator.NotifyOnNoReviewerAsync(chatId)
@@ -100,7 +103,7 @@ namespace C2R.TelegramBot.Services.Commands.Reviewer
                     .ConfigureAwait(false);
                 _logger.LogError($"Error on reviewer command: {e.Message}", e);
             }
-            
+
             await _botService.Client.SendTextMessageAsync(update.GetChatId(), update.Message.Text);
         }
     }

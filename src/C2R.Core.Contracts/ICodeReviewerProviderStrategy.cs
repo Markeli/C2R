@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace C2R.Core.Contracts
@@ -8,6 +9,6 @@ namespace C2R.Core.Contracts
         Guid StrategyId { get; }
         
         [NotNull]
-        CodeReviewerResponse GetCodeReviewer([NotNull] Team team, bool ignoreHistory);
+        Task<TeamMember> GetCodeReviewerAsync([NotNull] Team team);
     }
 }

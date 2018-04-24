@@ -9,4 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\C2R.Core.Contracts\C2R.Core.Contracts.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ReviewerProviderStrategies" />
+  </ItemGroup>
 </Project>

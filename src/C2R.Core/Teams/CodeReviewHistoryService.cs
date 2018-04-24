@@ -39,6 +39,20 @@ namespace C2R.Core.Teams
             }
         }
 
+        public async Task<HistoryEntry> GetLastReviewerAsync(long teamId)
+        {
+            using (var context = _dataContextFactory.Create())
+            {
+                var entity = await context.Set<HistoryEntryEntity>()
+                    .AsNoTracking()
+                    .OrderBy(x => x.ReviewDateTimeUtc)
+                    .LastOrDefaultAsync(x => x.TeamId == teamId)
+                    .ConfigureAwait(false);
+
+                return entity?.ToDomain();
+            }
+        }
+
         public async  Task RemoveLastReviewAsync(long teamId)
         { 
             using (var context = _dataContextFactory.Create())
@@ -48,7 +62,7 @@ namespace C2R.Core.Teams
                     .LastOrDefaultAsync(x => x.TeamId == teamId)
                     .ConfigureAwait(false);
                 
-                if (entity == null) throw new ArgumentException($"No code review history entris for team with id {teamId}");
+                if (entity == null) return;
 
                 context.Set<HistoryEntryEntity>().Remove(entity);
                 

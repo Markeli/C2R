@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace C2R.Core.Contracts
@@ -10,6 +11,9 @@ namespace C2R.Core.Contracts
         void UnregisterStrategy(Guid strategyId);
         
         [NotNull]
-        CodeReviewerResponse GetCodeReviewer([NotNull] Team team, [NotNull] TeamConfig config, bool ignoreHistory);
+        Task<CodeReviewerResponse> GetCodeReviewerAsync(
+            [NotNull] Team team, 
+            Guid reviewerProviderStrategyId, 
+            bool returnTodaySelectedReviewer = true);
     }
 }
