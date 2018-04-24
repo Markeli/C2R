@@ -13,7 +13,8 @@ namespace C2R.Core.Mappers
             {
                 Id = entity.Id,
                 TelegramUserId = entity.TelegramUserId,
-                TelegramUsername = entity.TelegramUsername
+                TelegramUsername = entity.TelegramUsername,
+                RegisterDateTimeUtc = entity.RegisterDateTimeUtc
             };
         }
 
@@ -25,7 +26,8 @@ namespace C2R.Core.Mappers
             {
                 Id = member.Id,
                 TelegramUserId = member.TelegramUserId,
-                TelegramUsername = member.TelegramUsername
+                TelegramUsername = member.TelegramUsername,
+                RegisterDateTimeUtc = member.RegisterDateTimeUtc
             };
         }
     }

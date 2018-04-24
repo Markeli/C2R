@@ -11,6 +11,8 @@ namespace C2R.Core.Data.Entities
         
         public string TelegramUsername { get; set; }
         
+        public DateTime RegisterDateTimeUtc { get; set; }
+        
         public long TeamId { get; set; }
         
         public virtual TeamEntity Team { get; set; }
