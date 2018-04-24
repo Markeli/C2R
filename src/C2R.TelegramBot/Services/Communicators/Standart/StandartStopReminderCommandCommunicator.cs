@@ -7,12 +7,12 @@ using Telegram.Bot.Types;
 
 namespace C2R.TelegramBot.Services.Communicators.Default
 {
-    public class DefaultStopReminderCommandCommunicator : IStopReminderCommandCommunicator
+    public class StandartStopReminderCommandCommunicator : IStopReminderCommandCommunicator
     {
         [NotNull]
         private readonly IBotService _botService;
 
-        public DefaultStopReminderCommandCommunicator([NotNull] IBotService botService)
+        public StandartStopReminderCommandCommunicator([NotNull] IBotService botService)
         {
             _botService = botService ?? throw new ArgumentNullException(nameof(botService));
         }

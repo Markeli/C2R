@@ -8,12 +8,12 @@ using Telegram.Bot.Types;
 
 namespace C2R.TelegramBot.Services.Communicators.Default
 {
-    public class DefaultReviewerCommandCommunicator : IReviewerCommandCommunicator
+    public class StandartReviewerCommandCommunicator : IReviewerCommandCommunicator
     {
         [NotNull]
         private readonly IBotService _botService;
 
-        public DefaultReviewerCommandCommunicator([NotNull] IBotService botService)
+        public StandartReviewerCommandCommunicator([NotNull] IBotService botService)
         {
             _botService = botService ?? throw new ArgumentNullException(nameof(botService));
         }

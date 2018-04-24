@@ -51,7 +51,7 @@ namespace C2R.TelegramBot
             }
 
             app.UseMvc();
-            app.UseC2RBotDefaultCommunicators();
+            app.UseC2RBotStandartCommunicators(true);
         }
     }
 }

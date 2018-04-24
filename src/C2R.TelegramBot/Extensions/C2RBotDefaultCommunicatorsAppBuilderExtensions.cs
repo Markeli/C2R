@@ -18,23 +18,26 @@ namespace C2R.TelegramBot.Extensions
 {
     public static class C2RBotDefaultCommunicatorsAppBuilderExtensions
     {
-        public static void UseC2RBotDefaultCommunicators([NotNull] this IApplicationBuilder appBuilder)
+        public static void UseC2RBotStandartCommunicators([NotNull] this IApplicationBuilder appBuilder, bool isDefault)
         {
             if (appBuilder == null) throw new ArgumentNullException(nameof(appBuilder));
 
-            var communicationMode = DefaultCommunictionMode.Id;
+            var communicationMode = CommunictionModeIds.Standart;
             
             var communicatorsFactory = appBuilder.ApplicationServices.GetService<ICommunicatorFactory>();
-            communicatorsFactory.SetDefaultCommunicationMode(communicationMode);
+            if (isDefault)
+            {
+                communicatorsFactory.SetDefaultCommunicationMode(communicationMode);
+            }
             
-            communicatorsFactory.Register<IAnotherReviewerCommandCommunicator, DefaultAnotherReviewerCommandCommunicator>(communicationMode);
-            communicatorsFactory.Register<IRandomCommandCommunciator, DefaultRandomCommandCommunicator>(communicationMode);
-            communicatorsFactory.Register<IRegisterCommandCommunicator, DefaultRegisterCommandCommunicator>(communicationMode);
-            communicatorsFactory.Register<IReviewerCommandCommunicator, DefaultReviewerCommandCommunicator>(communicationMode);
-            communicatorsFactory.Register<IStartCommandCommunicator, DefaultStartCommandCommunicator>(communicationMode);
-            communicatorsFactory.Register<IStartReminderCommandCommunicator, DefaultStartReminderCommandCommunicator>(communicationMode);
-            communicatorsFactory.Register<IStopReminderCommandCommunicator, DefaultStopReminderCommandCommunicator>(communicationMode);
-            communicatorsFactory.Register<IUnregisterCommandCommunicator, DefaultUnregisterCommandCommunicator>(communicationMode);
+            communicatorsFactory.Register<IAnotherReviewerCommandCommunicator, StandartAnotherReviewerCommandCommunicator>(communicationMode);
+            communicatorsFactory.Register<IRandomCommandCommunciator, StandartRandomCommandCommunicator>(communicationMode);
+            communicatorsFactory.Register<IRegisterCommandCommunicator, StandartRegisterCommandCommunicator>(communicationMode);
+            communicatorsFactory.Register<IReviewerCommandCommunicator, StandartReviewerCommandCommunicator>(communicationMode);
+            communicatorsFactory.Register<IStartCommandCommunicator, StandartStartCommandCommunicator>(communicationMode);
+            communicatorsFactory.Register<IStartReminderCommandCommunicator, StandartStartReminderCommandCommunicator>(communicationMode);
+            communicatorsFactory.Register<IStopReminderCommandCommunicator, StandartStopReminderCommandCommunicator>(communicationMode);
+            communicatorsFactory.Register<IUnregisterCommandCommunicator, StandartUnregisterCommandCommunicator>(communicationMode);
         }
     }
 }

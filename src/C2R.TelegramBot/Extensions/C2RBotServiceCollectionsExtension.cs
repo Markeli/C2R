@@ -13,6 +13,7 @@ using C2R.TelegramBot.Services.Commands.StartReminder;
 using C2R.TelegramBot.Services.Commands.StopReminders;
 using C2R.TelegramBot.Services.Commands.Unregister;
 using C2R.TelegramBot.Services.Communicators;
+using C2R.TelegramBot.Services.Scheduler;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +39,8 @@ namespace C2R.TelegramBot.Extensions
             services.AddSingleton<IBotService, BotService>();
             services.Configure<BotConfiguration>(configuration.GetSection("BotConfiguration"));
             services.AddSingleton<ICommunicatorFactory, CommunicatorFactory>();
+
+            services.AddSingleton<IReminderScheduler, ReminderScheduler>();
         }
         
         

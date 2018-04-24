@@ -7,12 +7,12 @@ using Telegram.Bot.Types;
 
 namespace C2R.TelegramBot.Services.Communicators.Default
 {
-    public class DefaultStartCommandCommunicator : IStartCommandCommunicator
+    public class StandartStartCommandCommunicator : IStartCommandCommunicator
     {
         [NotNull]
         private readonly IBotService _botService;
 
-        public DefaultStartCommandCommunicator([NotNull] IBotService botService)
+        public StandartStartCommandCommunicator([NotNull] IBotService botService)
         {
             _botService = botService ?? throw new ArgumentNullException(nameof(botService));
         }
