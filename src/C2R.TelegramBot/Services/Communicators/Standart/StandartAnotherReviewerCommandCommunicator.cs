@@ -42,5 +42,13 @@ namespace C2R.TelegramBot.Services.Communicators.Default
                     chatId,
                     "Произошла внутрення ошибка при выборе другого ревьюера. Мой создалеть уже в курсе");
         }
+
+        public Task NotifyOnNoTeamAsync(ChatId chatId)
+        {
+            return _botService.Client
+                .SendTextMessageAsync(
+                    chatId,
+                    "Чтобы я начал помогать с код ревью, меня надо об этом попросить. Отправьте команду /start, и ");
+        }
     }
 }

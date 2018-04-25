@@ -20,9 +20,6 @@ namespace C2R.TelegramBot.Services.Commands.Stop
         private readonly ILogger _logger;
 
         [NotNull] 
-        private readonly IBotService _botService;
-
-        [NotNull] 
         private readonly ITeamService _teamService;
         
         [NotNull] 
@@ -34,16 +31,16 @@ namespace C2R.TelegramBot.Services.Commands.Stop
         [NotNull]
         private readonly ICommunicatorFactory _communicatorsFactory;
 
+        public bool IsStartProcessor => false;
+        
         public StopCommandProcessor(
             [NotNull] ILogger<StopCommandProcessor> logger, 
-            [NotNull] IBotService botService, 
             [NotNull] ITeamService teamService, 
             [NotNull] ITeamConfigService configService, 
             [NotNull] IReminderScheduler reminderScheduler, 
             [NotNull] ICommunicatorFactory responseBuilderFactory)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _botService = botService ?? throw new ArgumentNullException(nameof(botService));
             _teamService = teamService ?? throw new ArgumentNullException(nameof(teamService));
             _configService = configService ?? throw new ArgumentNullException(nameof(configService));
             _reminderScheduler = reminderScheduler ?? throw new ArgumentNullException(nameof(reminderScheduler));

@@ -4,6 +4,7 @@ using C2R.Core.Contracts;
 using C2R.TelegramBot.Extensions;
 using C2R.TelegramBot.Services.Bots;
 using C2R.TelegramBot.Services.Communicators;
+using C2R.TelegramBot.Services.Communicators.Default;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot.Types;
@@ -17,9 +18,6 @@ namespace C2R.TelegramBot.Services.Commands.AnotherReviewer
 
         [NotNull]
         private readonly ILogger _logger;
-        [NotNull]
-        private readonly IBotService _botService;
-
         [NotNull]
         private readonly ITeamService _teamService;
 
@@ -35,19 +33,19 @@ namespace C2R.TelegramBot.Services.Commands.AnotherReviewer
         
         public AnotherReviewerCommandProcessor(
             [NotNull] ILogger<AnotherReviewerCommandProcessor> logger, 
-            [NotNull] IBotService botService, 
             [NotNull] ITeamService teamService, 
             [NotNull] ITeamConfigService configService, 
             [NotNull] ICodeReviewerProvider codeReviewerProvider, 
             [NotNull] ICommunicatorFactory communicatorFactory)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _botService = botService ?? throw new ArgumentNullException(nameof(botService));
             _teamService = teamService ?? throw new ArgumentNullException(nameof(teamService));
             _configService = configService ?? throw new ArgumentNullException(nameof(configService));
             _codeReviewerProvider = codeReviewerProvider;
             _communicatorFactory = communicatorFactory ?? throw new ArgumentNullException(nameof(communicatorFactory));
         }
+
+        public bool IsStartProcessor => false;
 
         public bool CanProcess(Update update)
         { 
@@ -70,6 +68,7 @@ namespace C2R.TelegramBot.Services.Commands.AnotherReviewer
             if (!canProcess) throw new ArgumentException($"{GetType().Name} can not procces message update with Id {update.Id} and type {update.Type}");
 
             var chatId = update.GetChatId();
+           
             var team = await _teamService
                 .GetTeamAsync(chatId.Identifier)
                 .ConfigureAwait(false);

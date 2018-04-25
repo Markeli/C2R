@@ -29,6 +29,8 @@ namespace C2R.TelegramBot.Services.Commands.StopReminders
         [NotNull]
         private readonly ITeamConfigService _configService;
 
+        public bool IsStartProcessor => false;
+        
         public StopReminderCommandProcessor(
             [NotNull] ILogger<StopReminderCommandProcessor> logger,
             [NotNull] ITeamService teamService,

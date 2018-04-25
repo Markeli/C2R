@@ -19,7 +19,6 @@ namespace C2R.TelegramBot.Services.Commands.Unregister
         private readonly string _commandName = "/unregister";
 
         [NotNull] private readonly ILogger _logger;
-        [NotNull] private readonly IBotService _botService;
 
         [NotNull] private readonly ITeamService _teamService;
 
@@ -29,15 +28,15 @@ namespace C2R.TelegramBot.Services.Commands.Unregister
         [NotNull]
         private readonly ICommunicatorFactory _communicatorFactory;
         
+        public bool IsStartProcessor => false;
+        
         public UnregisterCommandProcessor(
             [NotNull] ILogger<RegisterCommandProcessor> logger,
-            [NotNull] IBotService botService,
             [NotNull] ITeamService teamService, 
             [NotNull] ITeamConfigService configService, 
             [NotNull] ICommunicatorFactory communicatorFactory)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _botService = botService ?? throw new ArgumentNullException(nameof(botService));
             _teamService = teamService ?? throw new ArgumentNullException(nameof(teamService));
             _configService = configService ?? throw new ArgumentNullException(nameof(configService));
             _communicatorFactory = communicatorFactory ?? throw new ArgumentNullException(nameof(communicatorFactory));

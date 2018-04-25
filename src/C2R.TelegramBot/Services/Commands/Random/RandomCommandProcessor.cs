@@ -18,8 +18,6 @@ namespace C2R.TelegramBot.Services.Commands.Random
 
         [NotNull]
         private readonly ILogger _logger;
-        [NotNull]
-        private readonly IBotService _botService;
 
         [NotNull]
         private readonly ITeamService _teamService;
@@ -33,16 +31,16 @@ namespace C2R.TelegramBot.Services.Commands.Random
         [NotNull]
         private readonly ICommunicatorFactory _communicatorFactory;
         
+        public bool IsStartProcessor => false;
+        
         public RandomCommandProcessor(
             [NotNull] ILogger<RandomCommandProcessor> logger, 
-            [NotNull] IBotService botService, 
             [NotNull] ITeamService teamService, 
             [NotNull] ITeamConfigService configService, 
             [NotNull] ICodeReviewerProvider codeReviewerProvider, 
             [NotNull] ICommunicatorFactory communicatorFactory)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _botService = botService ?? throw new ArgumentNullException(nameof(botService));
             _teamService = teamService ?? throw new ArgumentNullException(nameof(teamService));
             _configService = configService ?? throw new ArgumentNullException(nameof(configService));
             _codeReviewerProvider = codeReviewerProvider;

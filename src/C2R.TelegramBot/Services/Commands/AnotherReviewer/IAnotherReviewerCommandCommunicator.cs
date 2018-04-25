@@ -19,5 +19,8 @@ namespace C2R.TelegramBot.Services.Commands.AnotherReviewer
         
         [NotNull]
         Task NotifyOnFailureAsync(ChatId chatId);
+        
+        [NotNull]
+        Task NotifyOnNoTeamAsync(ChatId chatId);
     }
 }

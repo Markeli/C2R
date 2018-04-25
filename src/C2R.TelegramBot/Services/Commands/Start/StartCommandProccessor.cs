@@ -26,6 +26,8 @@ namespace C2R.TelegramBot.Services.Commands.Start
         [NotNull]
         private readonly ICommunicatorFactory _communicatorFactory;
         
+        public bool IsStartProcessor => true;
+        
         public StartCommandProccessor(
             [NotNull] ILogger<StartCommandProccessor> logger, 
             [NotNull] ITeamService teamService,
