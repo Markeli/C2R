@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using C2R.Core;
 using C2R.Core.Contracts;
 using C2R.TelegramBot.Services.Communicators;
@@ -31,7 +32,16 @@ namespace C2R.TelegramBot.Extensions
             
             configService.SetDefaultCommunicationMode(defaultCommunicationMode);
             configService.SetDefaultProviderStrategy(defaultCodeReviewerProviderStrategy);
-            
+
+            var codeReviewerProvider = appBuilder.ApplicationServices.GetService<ICodeReviewerProvider>();
+            var strategies = appBuilder.ApplicationServices.GetServices<ICodeReviewerProviderStrategy>();
+            if (strategies == null || !strategies.Any()) throw new InvalidOperationException($"No code reviewer providing strategies registered");
+
+            foreach (var providerStrategy in strategies)
+            {
+                codeReviewerProvider.RegisterStrategy(providerStrategy);
+            }
+
         }
     }
 }

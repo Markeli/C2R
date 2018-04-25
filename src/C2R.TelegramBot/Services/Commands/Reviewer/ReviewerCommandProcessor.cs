@@ -103,8 +103,6 @@ namespace C2R.TelegramBot.Services.Commands.Reviewer
                     .ConfigureAwait(false);
                 _logger.LogError($"Error on reviewer command: {e.Message}", e);
             }
-
-            await _botService.Client.SendTextMessageAsync(update.GetChatId(), update.Message.Text);
         }
     }
 }

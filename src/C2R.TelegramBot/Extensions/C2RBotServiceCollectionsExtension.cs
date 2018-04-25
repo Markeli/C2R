@@ -63,7 +63,6 @@ namespace C2R.TelegramBot.Extensions
             services.AddSingleton<ICodeReviewerProvider, CodeReviewerProvider>();
             
             services.AddTransient<ICodeReviewerProviderStrategy, RandomCodeReviwerProviderStrategy>();
-            services.AddTransient<IRandomCodeReviewerProviderStrategy, RandomCodeReviwerProviderStrategy>();
             services.AddTransient<ICodeReviewerProviderStrategy, RoundRobinCodeReviewerProviderStrategy>();
         }
     }

@@ -76,6 +76,7 @@ namespace C2R.Core.Teams
             {
                 var entity = await context.Set<TeamEntity>()
                     .AsNoTracking()
+                    .Include(x => x.Members)
                     .FirstOrDefaultAsync(x => x.TelegramChatId == telegramChatId)
                     .ConfigureAwait(false);
 
