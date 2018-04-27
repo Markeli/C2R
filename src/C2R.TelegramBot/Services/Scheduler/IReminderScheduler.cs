@@ -6,8 +6,8 @@ namespace C2R.TelegramBot.Services.Scheduler
     {
         bool IsReminderCreated(long teamId);
         
-        long CreateReminder(long teamId, TimeSpan remindTimeUtc);
+        void CreateReminder(long teamId, TimeSpan remindTimeUtc);
 
-        bool TryDeleteReminder(long remindJobId);
+        bool TryDeleteReminder(long teamId);
     }
 }

@@ -8,14 +8,11 @@ namespace C2R.TelegramBot.Services.Scheduler
     public class ReminderScheduler : IReminderScheduler
     {
         [NotNull]
-        private readonly Dictionary<long, Tuple<long, TimeSpan>> _reminders;
-        [NotNull]
-        private readonly Random _randomizer;
+        private readonly Dictionary<long, TimeSpan> _reminders;
         
         public ReminderScheduler()
         {
-            _reminders = new Dictionary<long, Tuple<long, TimeSpan>>();
-            _randomizer = new Random();
+            _reminders = new Dictionary<long,TimeSpan>();
         }
 
         public bool IsReminderCreated(long teamId)
@@ -23,23 +20,16 @@ namespace C2R.TelegramBot.Services.Scheduler
             return _reminders.ContainsKey(teamId);
         }
 
-        public long CreateReminder(long teamId, TimeSpan remindTimeUtc)
+        public void CreateReminder(long teamId, TimeSpan remindTimeUtc)
         {
-            var id = _randomizer.Next();
-            
-            _reminders[teamId] = new Tuple<long, TimeSpan>(id, remindTimeUtc);
-
-            return id;
+            _reminders[teamId] = remindTimeUtc;
         }
 
-        public bool TryDeleteReminder(long remindJobId)
+        public bool TryDeleteReminder(long teamId)
         {
-            var remidnerInfo = _reminders.Values.FirstOrDefault(x => x.Item1 == remindJobId);
-            if (remidnerInfo == null) return false;
+            if (!_reminders.ContainsKey(teamId)) return false;
 
-            var teamId = _reminders.First(x => Equals(x.Value, remidnerInfo));
-
-            return _reminders.Remove(teamId.Key);
+            return _reminders.Remove(teamId);
         }
     }
 }
