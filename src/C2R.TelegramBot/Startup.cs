@@ -5,6 +5,10 @@ using C2R.TelegramBot.Extensions;
 using C2R.TelegramBot.Services;
 using C2R.TelegramBot.Services.Bots;
 using C2R.TelegramBot.Services.Commands;
+using Hangfire;
+using Hangfire.Dashboard;
+using Hangfire.Dashboard.Dark;
+using Hangfire.MemoryStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -41,18 +45,30 @@ namespace C2R.TelegramBot
             services.AddC2RBot(_configuration);
             services.AddC2RBotStandartCommunicators();
 
+            services.AddHangfire(config =>
+            {
+                config.UseMemoryStorage();
+                config.UseDarkDashboard();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
             IApplicationBuilder app, 
-            IHostingEnvironment env)
+            IHostingEnvironment env,
+            ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole();
+            loggerFactory.AddDebug();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
+            
             app.UseMvc();
             app.UseC2RBotStandartCommunicators(true);
             app.UseC2RBot();
